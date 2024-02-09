@@ -22,6 +22,9 @@ sphinx-rtd-theme = ">=2.0.0"
 hypothesis = ">=6.98.3"
 python-semantic-release = ">=9.0.3"
 
+[tool.semantic_release]
+version_variable = "pyproject.toml:version"
+
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
