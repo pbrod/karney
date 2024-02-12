@@ -8,7 +8,6 @@ This paper should be cited in publications using this library.
 The MIT License (MIT).
 
 Copyright (c) 2021-{0}, Per A. Brodtkorb
-Copyright (c) 2008-{0}, Charles Karney
 
 Permission is hereby granted, free of charge, to any person
 obtaining a copy of this software and associated documentation
