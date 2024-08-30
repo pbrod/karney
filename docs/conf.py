@@ -4,20 +4,18 @@
 # list see the documentation:
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
 
-import importlib
 import os
+import doctest
 import sys
-import inspect
-import re
-import glob
 from datetime import datetime
 
 CURRENT_YEAR = datetime.now().year
 START_YEAR = 2021
-DEV_YEARS = '{}'.format(START_YEAR) if START_YEAR == CURRENT_YEAR else '{}-{}'.format(START_YEAR, CURRENT_YEAR)
+DEV_YEARS = "{}".format(START_YEAR) if START_YEAR == CURRENT_YEAR else "{}-{}".format(START_YEAR,
+                                                                                      CURRENT_YEAR)
 
 __location__ = os.path.abspath(os.path.dirname(__file__))
-SOURCE_PATH = os.path.join(os.path.dirname(__location__), 'src')
+SOURCE_PATH = os.path.join(os.path.dirname(__location__), "src")
 sys.path.insert(0, SOURCE_PATH)
 
 
@@ -26,8 +24,8 @@ sys.path.insert(0, SOURCE_PATH)
 project = u"Karney"
 
 PACKAGE_NAME = project.lower()
-author = 'Per A. Brodtkorb'
-copyright = ', '.join((DEV_YEARS, author))
+author = "Per A. Brodtkorb"
+copyright = ", ".join((DEV_YEARS, author))
 
 
 # -- General configuration ---------------------------------------------------
@@ -43,9 +41,9 @@ extensions = [
     "sphinx.ext.doctest",
 ]
 source_suffix = {
-    '.rst': 'restructuredtext',
-    '.ipynb': 'myst-nb',
-    '.myst': 'myst-nb',
+    ".rst": "restructuredtext",
+    ".ipynb": "myst-nb",
+    ".myst": "myst-nb",
 }
 autoapi_dirs = ["../src"]
 
@@ -64,8 +62,6 @@ html_theme = "sphinx_rtd_theme"
 
 
 # -- Doctest configuration ----------------------------------------
-
-import doctest
 
 doctest_default_flags = (0
     | doctest.DONT_ACCEPT_TRUE_FOR_1

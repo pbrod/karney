@@ -14,10 +14,10 @@ from karney.util import (nthroot,
                          polar_radius,
                          deg,
                          rad,
-                         EPS,
+                         # EPS,
                          TINY)
 
-__all__ = ['distance', 'reckon', 'sphere_distance_rad']
+__all__ = ["distance", "reckon", "sphere_distance_rad"]
 # TINY = 1e-150
 
 # A1 coefficients defined in eq. 17 in Karney:
@@ -451,7 +451,7 @@ def sphere_distance_rad(lat1, lon1, lat2, lon2):
     --------
     **"Surface distance"**
     ----------------------
-     
+
     Find the surface distance sAB (i.e. great circle distance) between two
     positions A and B. The heights of A and B are ignored, i.e. if they don't have
     zero height, we seek the distance between the points that are at the surface of
@@ -472,12 +472,12 @@ def sphere_distance_rad(lat1, lon1, lat2, lon2):
       >>> s_AB = sphere_distance_rad(*rad(latlons))[0]*r_Earth
       >>> s_AB = distance(*latlons, a=r_Earth, f=0, degrees=True)[0] # or alternatively
 
-      >>> 'Ex5: Great circle = {:5.2f} km'.format(s_AB / 1000)
+      >>> "Ex5: Great circle = {:5.2f} km".format(s_AB / 1000)
       'Ex5: Great circle = 332.46 km'
 
     Exact solution for the WGS84 ellipsoid:
       >>> s_12, azi1, azi2 = distance(*latlons, degrees=True)
-      >>> 'Ellipsoidal distance = {:5.2f} km'.format(s_12 / 1000)
+      >>> "Ellipsoidal distance = {:5.2f} km".format(s_12 / 1000)
       'Ellipsoidal distance = 333.95 km'
 
 
@@ -555,14 +555,15 @@ def reckon(lat_a, lon_a, distance, azimuth, a=6378137, f=1.0 / 298.257223563,
 
     In geodesy this is known as "The first geodetic problem" or
     "The direct geodetic problem" for a sphere.
-    
+
       >>> import numpy as np
       >>> from karney.geodesic import reckon
       >>> lat, lon = 80, -90
-      >>> msg = 'Ex8, Destination: lat, lon = {:4.4f} deg, {:4.4f} deg'
+      >>> msg = "Ex8, Destination: lat, lon = {:4.4f} deg, {:4.4f} deg"
 
     Greatcircle solution:
-      >>> lat2, lon2, azi_b = reckon(lat, lon, distance=1000, azimuth=200, a=6371e3, f=0, degrees=True)
+      >>> datum = dict(a=6371e3, f=0)
+      >>> lat2, lon2, azi_b = reckon(lat, lon, distance=1000, azimuth=200, degrees=True, **datum)
 
       >>> msg.format(lat2, lon2)
       'Ex8, Destination: lat, lon = 79.9915 deg, -90.0177 deg'
@@ -717,7 +718,8 @@ def _solve_alpha1(alpha1, blat1, blat2, true_lamda12, a, f, tol=1e-15):
         if np.all(np.abs(dlamda12) < 1e-12):
             break
     else:
-        warnings.warn('Max iterations reached. Newton method did not converge.')
+        warnings.warn("Max iterations reached. Newton method did not converge.",
+                      stacklevel=2)
     return alpha1
 
 
@@ -783,7 +785,7 @@ def distance(lat_a, lon_a, lat_b, lon_b, a=6378137, f=1.0 / 298.257223563, degre
     --------
     **"Surface distance"**
     ----------------------
-     
+
     Find the surface distance sAB (i.e. great circle distance) between two
     positions A and B. The heights of A and B are ignored, i.e. if they don't have
     zero height, we seek the distance between the points that are at the surface of
@@ -804,12 +806,12 @@ def distance(lat_a, lon_a, lat_b, lon_b, a=6378137, f=1.0 / 298.257223563, degre
       >>> s_AB = sphere_distance_rad(*rad(latlons))[0]*r_Earth
       >>> s_AB = distance(*latlons, a=r_Earth, f=0, degrees=True)[0] # or alternatively
 
-      >>> 'Ex5: Great circle = {:5.2f} km'.format(s_AB / 1000)
+      >>> "Ex5: Great circle = {:5.2f} km".format(s_AB / 1000)
       'Ex5: Great circle = 332.46 km'
 
     Exact solution for the WGS84 ellipsoid:
       >>> s_12, azi1, azi2 = distance(*latlons, degrees=True)
-      >>> 'Ellipsoidal distance = {:5.2f} km'.format(s_12 / 1000)
+      >>> "Ellipsoidal distance = {:5.2f} km".format(s_12 / 1000)
       'Ellipsoidal distance = 333.95 km'
 
 
@@ -916,7 +918,8 @@ def _distance(lat_a, lon_a, lat_b, lon_b, a=6378137, f=1.0 / 298.257223563):
         lamda2 = w_2 - f * sin_alpha0 * fun_i3(sigma2)  # Eq. 8
         lamda12 = lamda2-lamda1
         if np.any(np.abs(lamda12 - true_lamda12) > 1e-8):
-            warnings.warn('Some positions did not converge using newton method!....')
+            warnings.warn("Some positions did not converge using newton method!....",
+                          stacklevel=2)
         return s12, alpha2
 
     s12, alpha1, alpha2, sigma12 = vincenty()
@@ -965,6 +968,6 @@ _odict = globals()
 __doc__ = (__doc__  # @ReservedAssignment
            + _make_summary(dict((n, _odict[n]) for n in __all__)))
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     test_docstrings(__file__)
 

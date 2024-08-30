@@ -26,7 +26,7 @@ __version__ = version("karney")  # read version from installed package
 __doc__ = (__doc__
            + geodesic.__doc__
            + util.__doc__
-           + 'License\n-------\n'
+           + "License\n-------\n"
            + license.__doc__)
 
 

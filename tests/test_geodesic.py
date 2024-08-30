@@ -13,12 +13,12 @@ import numpy as np
 from karney.geodesic import distance, reckon
 
 
-Ellipsoid = namedtuple('Ellipsoid', 'a f name')
+Ellipsoid = namedtuple("Ellipsoid", "a f name")
 
-WGS84 = Ellipsoid(a=6378137.0, f=1.0 / 298.257223563, name='WGS84')
-SPHERE = Ellipsoid(a=6.4e6, f=0, name='sphere')
-PROLATE15 = Ellipsoid(a=6.4e6, f=-1 / 150.0, name='prolate spheroid 15')
-PROLATE30 = Ellipsoid(a=6.4e6, f=-1 / 300.0, name='prolate spheroid 30')
+WGS84 = Ellipsoid(a=6378137.0, f=1.0 / 298.257223563, name="WGS84")
+SPHERE = Ellipsoid(a=6.4e6, f=0, name="sphere")
+PROLATE15 = Ellipsoid(a=6.4e6, f=-1 / 150.0, name="prolate spheroid 15")
+PROLATE30 = Ellipsoid(a=6.4e6, f=-1 / 300.0, name="prolate spheroid 30")
 WGS84_OPTIONS = dict(a=WGS84.a, f=WGS84.f, degrees=True)
 SPHERE_OPTIONS = dict(a=SPHERE.a, f=SPHERE.f, degrees=True)
 PROLATE15_OPTIONS = dict(a=PROLATE15.a, f=PROLATE15.f, degrees=True)
@@ -205,9 +205,13 @@ def test_prolate30_direct(testcase):
     assert az_b == approx(azi2, abs=1e-13)
 
 
-@pytest.mark.parametrize("lat1, lon1, lat2, lon2, s12, az1, az2",
-                         [(0.07476, 0, -0.07476, 180, 20106193, 90.00078, 90.00078),
-                          (0.1, 0, -0.1, 180, 20106193, 90.00105, 90.00105)])
+@pytest.mark.parametrize(
+    "lat1, lon1, lat2, lon2, s12, az1, az2",
+    [
+        (0.07476, 0, -0.07476, 180, 20106193, 90.00078, 90.00078),
+        (0.1, 0, -0.1, 180, 20106193, 90.00105, 90.00105),
+    ],
+)
 def test_geo_solve2(lat1, lon1, lat2, lon2, s12, az1, az2):
     """Check fix for antipodal prolate bug found 2010-09-04"""
 
@@ -220,7 +224,7 @@ def test_geo_solve2(lat1, lon1, lat2, lon2, s12, az1, az2):
 
 def test_geo_solve4():
     """Check fix for short line bug found 2010-05-21"""
-    lat1, lon1, lat2, lon2 = (36.493349428792, 0, 36.49334942879201, .0000008)
+    lat1, lon1, lat2, lon2 = (36.493349428792, 0, 36.49334942879201, 0.0000008)
     s_ab, az_a, az_b = distance(lat1, lon1, lat2, lon2, **WGS84_OPTIONS)
     az_a, az_b = np.deg2rad((az_a, az_b))
 
@@ -281,25 +285,28 @@ def test_wgs84direct_long_unroll():
     assert lon_b == approx(-254, abs=1)
     assert az_b == approx(-170, abs=1)
 
-    lat_b, lon_b, az_b = reckon(40, -75,  2e7, -10, **WGS84_OPTIONS)
+    lat_b, lon_b, az_b = reckon(40, -75, 2e7, -10, **WGS84_OPTIONS)
     assert lat_b == approx(-39, abs=1)
     assert lon_b == approx(105, abs=1)
     assert az_b == approx(-170, abs=1)
 
 
-@pytest.mark.parametrize("datum, lat1, lon1, lat2, lon2, s12, az1, az2",
-                         [(WGS84_OPTIONS, 0, 0, 0, 179, 19926189, 90.00000, 90.00000),
-                          (WGS84_OPTIONS, 0, 0, 0, 179.5, 19980862, 55.96650, 124.03350),
-                          (WGS84_OPTIONS, 0, 0, 0, 180, 20003931, 0.00000, 180.00000),
-                          (WGS84_OPTIONS, 0, 0, 1, 180, 19893357, 0.00000, 180.00000),
-                          (SPHERE_OPTIONS, 0, 0, 0, 179, 19994492, 90.00000, 90.00000),
-                          (SPHERE_OPTIONS, 0, 0, 0, 180, 20106193, 0.00000, 180.00000),
-                          (SPHERE_OPTIONS, 0, 0, 1, 180, 19994492, 0.00000, 180.00000),
-                          (PROLATE30_OPTIONS, 0, 0, 0, 179, 19994492, 90.00000, 90.00000),
-                          (PROLATE30_OPTIONS, 0, 0, 0, 180, 20106193, 90.00000, 90.00000),
-                          (PROLATE30_OPTIONS, 0, 0, 0.5, 180, 20082617, 33.02493, 146.97364),
-                          (PROLATE30_OPTIONS, 0, 0, 1, 180, 20027270, 0.00000, 180.00000)
-                          ])
+@pytest.mark.parametrize(
+    "datum, lat1, lon1, lat2, lon2, s12, az1, az2",
+    [
+        (WGS84_OPTIONS, 0, 0, 0, 179, 19926189, 90.00000, 90.00000),
+        (WGS84_OPTIONS, 0, 0, 0, 179.5, 19980862, 55.96650, 124.03350),
+        (WGS84_OPTIONS, 0, 0, 0, 180, 20003931, 0.00000, 180.00000),
+        (WGS84_OPTIONS, 0, 0, 1, 180, 19893357, 0.00000, 180.00000),
+        (SPHERE_OPTIONS, 0, 0, 0, 179, 19994492, 90.00000, 90.00000),
+        (SPHERE_OPTIONS, 0, 0, 0, 180, 20106193, 0.00000, 180.00000),
+        (SPHERE_OPTIONS, 0, 0, 1, 180, 19994492, 0.00000, 180.00000),
+        (PROLATE30_OPTIONS, 0, 0, 0, 179, 19994492, 90.00000, 90.00000),
+        (PROLATE30_OPTIONS, 0, 0, 0, 180, 20106193, 90.00000, 90.00000),
+        (PROLATE30_OPTIONS, 0, 0, 0.5, 180, 20082617, 33.02493, 146.97364),
+        (PROLATE30_OPTIONS, 0, 0, 1, 180, 20027270, 0.00000, 180.00000),
+    ],
+)
 def test_geo_solve33(datum, lat1, lon1, lat2, lon2, s12, az1, az2):
     # Check max(-0.0,+0.0) issues 2015-08-22 (triggered by bugs in
     # Octave -- sind(-0.0) = +0.0 -- and in some version of Visual
@@ -310,12 +317,16 @@ def test_geo_solve33(datum, lat1, lon1, lat2, lon2, s12, az1, az2):
     assert s_ab == approx(s12, abs=0.5)
 
 
-@pytest.mark.parametrize("lat1, lon1, lat2, lon2",
-                         [(np.nan, 0, 0, 90),
-                          (np.nan, 0, 90, 9),
-                          (0, np.nan, 0, 90),
-                          (0, 0, np.nan, 90),
-                          (0, 0, 1, np.nan)])
+@pytest.mark.parametrize(
+    "lat1, lon1, lat2, lon2",
+    [
+        (np.nan, 0, 0, 90),
+        (np.nan, 0, 90, 9),
+        (0, np.nan, 0, 90),
+        (0, 0, np.nan, 90),
+        (0, 0, 1, np.nan),
+    ],
+)
 def test_nan_propagation(lat1, lon1, lat2, lon2):
     """Check that WGS84.inverse return nans when input is nan."""
     s_ab, az_a, az_b = distance(lat1, lon1, lat2, lon2, **WGS84_OPTIONS)
@@ -325,5 +336,5 @@ def test_nan_propagation(lat1, lon1, lat2, lon2):
     assert np.isnan(s_ab)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     pass

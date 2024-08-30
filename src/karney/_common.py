@@ -1,14 +1,13 @@
 import inspect
-try:
-    import textwrap
-    textwrap.indent  # pylint: disable=pointless-statement
-except AttributeError:  # undefined function (wasn't added until Python 3.3)
-    def indent(text, amount=4, ch=' '):
-        padding = amount * ch
-        return ''.join(padding+line for line in text.splitlines(True))
-else:
-    def indent(text, amount=4, ch=' '):
+import textwrap
+HAVE_INDENT = getattr(textwrap, "indent", None)
+if HAVE_INDENT:
+    def indent(text, amount=4, ch=" "):
         return textwrap.indent(text, amount * ch)
+else:  # textwrap.indent function undefined (wasn't added until Python 3.3)
+    def indent(text, amount=4, ch=" "):
+        padding = amount * ch
+        return "".join(padding+line for line in text.splitlines(True))
 
 dedent = textwrap.dedent
 
@@ -18,23 +17,23 @@ def _get_h1line(object_):
     doc = object_.__doc__
     if doc:
         return doc.partition("Parameters\n")[0].strip()
-    return ''
+    return ""
 
 
 def _make_summary(odict):
     """Return summary of all functions and classes in odict"""
 
-    class_summary = '\n'.join([':\n'.join((oname, indent(_get_h1line(obj))))
+    class_summary = "\n".join([":\n".join((oname, indent(_get_h1line(obj))))
                                for oname, obj in odict.items() if inspect.isclass(obj)])
 
-    fun_summary = '\n'.join([':\n'.join((oname, indent(_get_h1line(obj))))
+    fun_summary = "\n".join([":\n".join((oname, indent(_get_h1line(obj))))
                              for oname, obj in odict.items() if not inspect.isclass(obj)])
     fmt = "{} in module\n{}----------\n{}\n\n"
-    summary = ''
+    summary = ""
     if class_summary:
-        summary = fmt.format("Classes", '-'*8, class_summary)
+        summary = fmt.format("Classes", "-"*8, class_summary)
     if fun_summary:
-        summary = summary + fmt.format('Functions', '-'*9, fun_summary)
+        summary = summary + fmt.format("Functions", "-"*9, fun_summary)
     return summary
 
 
@@ -76,11 +75,11 @@ def use_docstring(docstring):
 
 def test_docstrings(filename):
     import doctest
-    print('Testing docstrings in {0!s}'.format(filename))
+    print("Testing docstrings in {0!s}".format(filename))
     doctest.testmod(optionflags=doctest.NORMALIZE_WHITESPACE | doctest.ELLIPSIS)
-    print('Docstrings tested')
+    print("Docstrings tested")
 
 
 def write_readme(doc):
-    with open('readme.txt', 'w') as fid:
+    with open("readme.txt", "w") as fid:
         fid.write(doc)
