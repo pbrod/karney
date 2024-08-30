@@ -20,7 +20,7 @@ build:
     post_install:
       # Install dependencies with 'dev' dependency group
       # https://python-poetry.org/docs/managing-dependencies/#dependency-groups
-      - poetry install with dev
+      - poetry install --with dev
       
 # Build documentation in the "docs/" directory with Sphinx
 sphinx:
