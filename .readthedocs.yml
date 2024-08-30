@@ -15,6 +15,7 @@ build:
       # Install poetry
       # https://python-poetry.org/docs/#installing-manually
       - pip install poetry
+      - pip install myst-nb
       # Tell poetry to not use a virtual environment
       - poetry config virtualenvs.create false
     post_install:
