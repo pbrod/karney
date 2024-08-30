@@ -15,9 +15,10 @@ build:
       # Install poetry
       # https://python-poetry.org/docs/#installing-manually
       - pip install poetry
-      #- pip install myst-nb
+      - pip install myst-nb
+      - pip install autoapi
       # Tell poetry to not use a virtual environment
-      #- poetry config virtualenvs.create false
+      - poetry config virtualenvs.create false
     post_install:
       # Install dependencies with 'dev' dependency group
       # https://python-poetry.org/docs/managing-dependencies/#dependency-groups
