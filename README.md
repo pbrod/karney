@@ -1,5 +1,9 @@
 # Introduction to Karney
 
+![Alt text](https://badge.fury.io/py/karney "version")
+![Alt text](https://readthedocs.org/projects/karney/badge/?svg=true "documentation")
+
+
 The `karney` library provides native Python implementations of a subset of the C++ library, GeographicLib.
 Currently the following operations are implemented:
 
