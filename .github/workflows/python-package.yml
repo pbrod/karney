@@ -32,7 +32,7 @@ jobs:
     - name: Update Poetry configuration
       run: poetry config virtualenvs.create false
     - name: Install karney with dependencies
-      run: poetry install with dev --no-interaction
+      run: poetry install --with dev --no-interaction
     - name: Lint with ruff
       run: |
         # stop the build if there are Python syntax errors or undefined names
