@@ -2,7 +2,7 @@
 
 ![Version](https://badge.fury.io/py/karney "version")
 [![Documentation](https://readthedocs.org/projects/karney/badge/?svg=true "documentation")](https://karney.readthedocs.io/en/latest/)
-[![Python package](https://github.com/pbrod/karney/actions/workflows/python-package.yml/badge.svg)](https://github.com/pbrod/karney/actions/workflows/python-package.yml)
+[![CI-tests](https://github.com/pbrod/karney/actions/workflows/CI-tests.yml/badge.svg)](https://github.com/pbrod/karney/actions/workflows/CI-tests.yml)
 
 
 The `karney` library provides native Python implementations of a subset of the C++ library, GeographicLib.
