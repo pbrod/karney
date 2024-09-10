@@ -17,14 +17,12 @@ jobs:
       fail-fast: false
       matrix:
         python-version: ["3.9", "3.10", "3.11", "3.12"]
-
     steps:
     - uses: actions/checkout@v4
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v3
       with:
         python-version: ${{ matrix.python-version }}
-        cache: 'poetry' # caching poetry dependencies
     - name: Install Poetry
       run: |
           curl -sSL https://install.python-poetry.org | python - -y
