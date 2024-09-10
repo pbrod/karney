@@ -29,6 +29,9 @@ ruff = ">=0.0.47"
 
 [tool.semantic_release]
 version_variable = "pyproject.toml:version"
+branch= "main" # branch to make releases of
+changelog_file = "CHANGELOG.md"                       # changelog file
+build_command = "pip install poetry && poetry build"  # build dists   
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
