@@ -17,6 +17,8 @@ jobs:
       url: https://pypi.org/project/karney/
     permissions:
       id-token: write
+    # Only run this job if the "testpypi-publish" job passes
+    needs: testpypi-publish
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
