@@ -41,7 +41,7 @@ jobs:
         ruff check ./src/
     - name: Test with pytest
       run: poetry run pytest tests/ --cov=karney --cov-report=xml
-  cd:
+  release-build:
     permissions:
       id-token: write
       contents: write
@@ -67,29 +67,74 @@ jobs:
         fetch-depth: 0
     - name: Use Python Semantic Release to prepare release
       id: release
-      uses: python-semantic-release/python-semantic-release@v8.3.0
+      uses: python-semantic-release/python-semantic-release@v9.8.8
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-    - name: Publish to TestPyPI
+    - name: Upload distributions
       uses: pypa/gh-action-pypi-publish@release/v1
       if: steps.release.outputs.released == 'true'
       with:
         repository-url: https://test.pypi.org/simple/karney
     - name: Test install from TestPyPI
+      uses: actions/upload-artifact@v4
+        with:
+          name: release-dists
+          path: dist/
+
+  testpypi-publish:
+    runs-on: ubuntu-latest
+
+    needs:
+      - release-build
+
+    permissions:
+      # IMPORTANT: this permission is mandatory for trusted publishing
+      id-token: write
+
+    # Dedicated environments with protections for publishing are strongly recommended.
+    environment:
+      name: pypi
+      # OPTIONAL: uncomment and update to include your PyPI project URL in the deployment status:
+      url: https://test.pypi.org/p/karney
+
+    steps:
+      - name: Retrieve release distributions
+        uses: actions/download-artifact@v4
+        with:
+          name: release-dists
+          path: dist/
+
+      - name: Publish release distributions to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+
       run: |
           pip install \
           --index-url https://test.pypi.org/simple/ \
           --extra-index-url https://pypi.org/simple/ \
             karney
 
-    - name: Publish to PyPI
-      uses: pypa/gh-action-pypi-publish@release/v1
-      if: steps.release.outputs.released == 'true'
-      with:
-        repository-url: https://pypi.org/project/karney
+  pypi-publish:
+    runs-on: ubuntu-latest
 
-    - name: Publish package distributions to GitHub Releases
-      uses: python-semantic-release/upload-to-gh-release@main
-      if: steps.release.outputs.released == 'true'
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+    needs:
+      - testpypi-publish
+
+    permissions:
+      # IMPORTANT: this permission is mandatory for trusted publishing
+      id-token: write
+
+    # Dedicated environments with protections for publishing are strongly recommended.
+    environment:
+      name: pypi
+      # OPTIONAL: uncomment and update to include your PyPI project URL in the deployment status:
+      url: https://pypi.org/p/karney
+
+    steps:
+      - name: Retrieve release distributions
+        uses: actions/download-artifact@v4
+        with:
+          name: release-dists
+          path: dist/
+
+      - name: Publish release distributions to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
