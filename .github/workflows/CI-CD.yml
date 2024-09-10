@@ -71,11 +71,6 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
     - name: Upload distributions
-      uses: pypa/gh-action-pypi-publish@release/v1
-      if: steps.release.outputs.released == 'true'
-      with:
-        repository-url: https://test.pypi.org/simple/karney
-    - name: Test install from TestPyPI
       uses: actions/upload-artifact@v4
       with:
         name: release-dists
