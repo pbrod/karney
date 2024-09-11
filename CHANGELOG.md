@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v1.0.7 (2024-09-11)
+
+### Fix
+
+* fix: Added CODECOV_TOKEN to CI-CD.yml and PyPi version to README.md ([`d3a9984`](https://github.com/pbrod/karney/commit/d3a9984046e7efb01593cfb98696853f9f387733))
+
 ## v1.0.6 (2024-09-11)
 
 ### Fix
