@@ -41,7 +41,7 @@ jobs:
         # stop the build if there are Python syntax errors or undefined names
         ruff check ./src/
     - name: Test with pytest
-      run: poetry run pytest tests/ --cov=karney --cov-report=xml
+      run: poetry run pytest tests/ --cov=karney --cov-report=xml --doctest-modules
     - name: Use Codecov to track coverage
       uses: codecov/codecov-action@v4
       if: matrix.python-version == '3.9'
