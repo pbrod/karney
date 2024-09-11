@@ -35,12 +35,19 @@ jobs:
       run: poetry config virtualenvs.create false
     - name: Install karney with dependencies
       run: poetry install --with dev --no-interaction
+
     - name: Lint with ruff
       run: |
         # stop the build if there are Python syntax errors or undefined names
         ruff check ./src/
     - name: Test with pytest
       run: poetry run pytest tests/ --cov=karney --cov-report=xml
+    - name: Use Codecov to track coverage
+      uses: codecov/codecov-action@v2
+      if: matrix.python-version == '3.9'
+      with:
+        files: ./coverage.xml   # coverage report
+
   release-build:
     concurrency: release-build
     permissions:
@@ -104,7 +111,7 @@ jobs:
       - name: Retrieve release distributions
         uses: actions/download-artifact@v4
         with:
-          name: release-dists
+          name: python-package-distributions
           path: dist/
 
       - name: Publish release distributions to PyPI
@@ -136,7 +143,7 @@ jobs:
       - name: Retrieve release distributions
         uses: actions/download-artifact@v4
         with:
-          name: release-dists
+          name: python-package-distributions
           path: dist/
 
       - name: Publish release distributions to PyPI
