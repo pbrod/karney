@@ -54,18 +54,19 @@ jobs:
 
     # Set up operating system
     runs-on: ubuntu-latest
+    outputs:
+      tag: ${{ steps.release.outputs.tag }}
+      released: ${{ steps.release.outputs.released }}
 
     # Define job steps
     steps:
-    - name: Set up Python 3.9
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.9
-
     - name: Check-out repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
       with:
         fetch-depth: 0
+        ref: main
+        submodules: recursive
+
     - name: Use Python Semantic Release to prepare release
       id: release
       uses: python-semantic-release/python-semantic-release@v9.8.8
