@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v1.0.8 (2024-09-11)
+
+### Fix
+
+* fix: Removed fragile determination of package version in __init__.py ([`b1a8f00`](https://github.com/pbrod/karney/commit/b1a8f0063948f1af81d9885b50dc1725b72e2f9b))
+
 ## v1.0.7 (2024-09-11)
 
 ### Fix
