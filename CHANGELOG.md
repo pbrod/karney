@@ -1,8 +1,24 @@
 # CHANGELOG
 
+## v1.0.4 (2024-09-11)
+
+### Fix
+
+* fix: Another attempt to fix workflows/CI-CD.yml ([`386be8e`](https://github.com/pbrod/karney/commit/386be8ed5d7bdd31e7cfe9fbff6bb55f737b5d79))
+
 ## v1.0.3 (2024-09-10)
 
 ### Build
+
+* build: updated CI-CD.yml ([`fdc518c`](https://github.com/pbrod/karney/commit/fdc518cea533782f7438fb6f6a17c40855a0a3d2))
+
+* build: updated CI-CD.yml ([`73603b5`](https://github.com/pbrod/karney/commit/73603b5b181f22773048a752b2e670cea33e9719))
+
+* build: Update CI-CD.yml ([`dca15d8`](https://github.com/pbrod/karney/commit/dca15d8df1a66d901aad4c3c72ef90eacae7b7b7))
+
+* build: Updated CI-CD.yml ([`5cd9385`](https://github.com/pbrod/karney/commit/5cd938599857383f72faebea52fd0013b6e9e737))
+
+* build: Renamed CI-tests.yml to CI-CD.yml ([`68f73d7`](https://github.com/pbrod/karney/commit/68f73d76c8843c8d327fd448350112275002c067))
 
 * build: test new build workflow ([`22db731`](https://github.com/pbrod/karney/commit/22db731ee7d6362dbeb8f81c7ede1880cf272d88))
 
