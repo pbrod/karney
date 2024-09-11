@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v1.0.6 (2024-09-11)
+
+### Fix
+
+* fix: Yet another attempt to fix workflows/CI-CD.yml ([`e6e88e2`](https://github.com/pbrod/karney/commit/e6e88e2e155206db3b6317ee61610c4d049159ea))
+
 ## v1.0.5 (2024-09-11)
 
 ### Fix
