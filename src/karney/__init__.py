@@ -19,9 +19,9 @@ J. Geodesy 87, 43-55 (2013);
 https://doi.org/10.1007/s00190-012-0578-z
 
 """
-from importlib.metadata import version
+
 from . import geodesic, util, license
-__version__ = version("karney")  # read version from installed package
+__version__ = "1.0.7"
 
 __doc__ = (__doc__
            + geodesic.__doc__
