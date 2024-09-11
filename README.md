@@ -1,6 +1,6 @@
 # Introduction to Karney
 
-![Version](https://badge.fury.io/py/karney "version")
+[![PyPI version](https://badge.fury.io/py/karney.svg)](https://badge.fury.io/py/karney)
 [![Documentation](https://readthedocs.org/projects/karney/badge/?svg=true "documentation")](https://karney.readthedocs.io/en/latest/)
 [![CI-tests](https://github.com/pbrod/karney/actions/workflows/CI-CD.yml/badge.svg)](https://github.com/pbrod/karney/actions/workflows/CI-CD.yml)
 

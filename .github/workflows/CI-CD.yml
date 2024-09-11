@@ -43,9 +43,10 @@ jobs:
     - name: Test with pytest
       run: poetry run pytest tests/ --cov=karney --cov-report=xml
     - name: Use Codecov to track coverage
-      uses: codecov/codecov-action@v2
+      uses: codecov/codecov-action@v4
       if: matrix.python-version == '3.9'
       with:
+        token: ${{ secrets.CODECOV_TOKEN }}
         files: ./coverage.xml   # coverage report
 
   release-build:
