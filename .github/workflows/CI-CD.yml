@@ -97,7 +97,7 @@ jobs:
         path: dist/
 
   testpypi-publish:
-    needs: release1
+    if: release1.outputs.released == 'true'
     runs-on: ubuntu-latest
     permissions:
       # IMPORTANT: this permission is mandatory for trusted publishing
