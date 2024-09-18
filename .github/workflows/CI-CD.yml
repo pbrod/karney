@@ -49,8 +49,8 @@ jobs:
         token: ${{ secrets.CODECOV_TOKEN }}
         files: ./coverage.xml   # coverage report
 
-  relase1:
-    concurrency: relase1
+  release1:
+    concurrency: release1
     permissions:
       contents: write
     # Only run this job if the "ci" job passes
@@ -100,7 +100,7 @@ jobs:
     needs: [release1]
     runs-on: ubuntu-latest
     
-    if: relase1.outputs.released
+    if: release1.outputs.released
     permissions:
       # IMPORTANT: this permission is mandatory for trusted publishing
       id-token: write
