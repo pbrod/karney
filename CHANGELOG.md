@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## v1.0.10 (2024-09-30)
+
+### Fix
+
+* fix: Allow numpy&gt;=2.0 ([`7b3cd1c`](https://github.com/pbrod/karney/commit/7b3cd1c46bcaacd885e6c27532568b3b04efddbc))
+
+### Unknown
+
+* Attempt to remove warnings when running workflows/CI-CD.yml ([`63562d9`](https://github.com/pbrod/karney/commit/63562d9328b1166b389552036b590ee40c15af5d))
+
 ## v1.0.9 (2024-09-30)
 
 ### Fix
