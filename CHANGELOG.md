@@ -1,5 +1,39 @@
 # CHANGELOG
 
+## v1.0.9 (2024-09-30)
+
+### Fix
+
+* fix: Made numpy requirement less strict. ([`72dcb55`](https://github.com/pbrod/karney/commit/72dcb5573f1768892fb81809ec4deb2797a49192))
+
+### Refactor
+
+* refactor: CI-CD.yml ([`62e6f9c`](https://github.com/pbrod/karney/commit/62e6f9cc01bf6f51baeeef0194ae06174a384538))
+
+* refactor: CI-CD.yml ([`250dd75`](https://github.com/pbrod/karney/commit/250dd75b43c6552560e2d296eee5d879697d2ecb))
+
+* refactor: CI-CD.yml ([`1486e32`](https://github.com/pbrod/karney/commit/1486e327e0a5f4a21a87c4ab416d6417164d1206))
+
+* refactor: CI-CD.yml ([`ee1f66d`](https://github.com/pbrod/karney/commit/ee1f66d95c6d5d7b90f097c3e14864882e1b08db))
+
+* refactor: CI-CD.yml ([`aa8ce41`](https://github.com/pbrod/karney/commit/aa8ce41788df891453a8d6729921213ef15f15d8))
+
+* refactor: workflows/CI-CD.yml so it will not try to test-publish an already published relase ([`72bd9eb`](https://github.com/pbrod/karney/commit/72bd9eb110a679044824864bc7e9563f4853ebae))
+
+### Test
+
+* test: Added doctest to workflows/CI-CD.yml and deleted workflows/publish.yml and workflows/testpublish.yml ([`1ff7318`](https://github.com/pbrod/karney/commit/1ff7318d5010c277beb53e616ac4990feaa4e023))
+
+### Unknown
+
+* * fix: Made numpy requirement more strict for python 3.12 ([`896e8ee`](https://github.com/pbrod/karney/commit/896e8eed465c30d058986cbe7e9839fc6f53b42c))
+
+* Attempt 2 on resolving python and numpy requirements ([`5a69ad9`](https://github.com/pbrod/karney/commit/5a69ad974c0cebd367ea78fdebe242db2bca9883))
+
+* Attempt to resolve python and numpy requirements ([`c0144cb`](https://github.com/pbrod/karney/commit/c0144cb8163c2beaa6c0deb45261215b1fa7e148))
+
+* refactor CI-CD.yml ([`1166226`](https://github.com/pbrod/karney/commit/1166226a878652e0752ae01f87540956d304919d))
+
 ## v1.0.8 (2024-09-11)
 
 ### Fix

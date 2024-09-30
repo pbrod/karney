@@ -21,7 +21,7 @@ https://doi.org/10.1007/s00190-012-0578-z
 """
 
 from . import geodesic, util, license
-__version__ = "1.0.8"
+__version__ = "1.0.9"
 
 __doc__ = (__doc__
            + geodesic.__doc__

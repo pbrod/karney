@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "karney"
-version = "1.0.8"
+version = "1.0.9"
 description = "Solves the direct and inverse geodesic problem."
 authors = ["Per A. Brodtkorb"]
 license = "MIT"
