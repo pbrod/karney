@@ -9,12 +9,7 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = ">=3.8.0"
 # See https://numpy.org/neps/nep-0029-deprecation_policy.html:
-numpy = [    
-    {version = ">=1.25", python = ">=3.11"},
-    {version = ">=1.23", python = "=3.10"},
-    {version = ">=1.21", python = "=3.9"},
-    {version = ">=1.19", python = "=3.8"},
-]
+numpy = ">=1.19"
 
 [tool.poetry.dev-dependencies]
 
