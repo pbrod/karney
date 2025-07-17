@@ -293,7 +293,7 @@ def get_ellipsoid(name):
 
 _odict = globals()
 __doc__ = (__doc__  # @ReservedAssignment
-           + _make_summary(dict((n, _odict[n]) for n in __all__)))
+           + _make_summary({n: _odict[n] for n in __all__}))
 
 
 if __name__ == "__main__":
