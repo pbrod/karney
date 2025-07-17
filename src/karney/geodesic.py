@@ -512,7 +512,7 @@ def reckon(lat_a, lon_a, distance, azimuth, a=6378137, f=1.0 / 298.257223563,
 
     Parameters
     ----------
-    lat_a, lon_b: real scalars or vectors of length k.
+    lat_a, lon_a: real scalars or vectors of length k.
         latitude(s) and longitude(s) of position A [rad or deg].
     distance: real scalar or vector of length m.
         ellipsoidal distance [m] between position A and B.
