@@ -12,19 +12,12 @@ build:
     python: "3.12"
   jobs:
     post_create_environment:
-      # Install poetry
-      # https://python-poetry.org/docs/#installing-manually
+      # Install pdm
       - pip install --upgrade pip
-      - pip install poetry
-      - pip install myst-nb
-      - pip install sphinx-autoapi 
-      - pip install sphinx-rtd-theme
-      # Tell poetry to not use a virtual environment
-      - poetry config virtualenvs.create false
+      - pip install pdm
     post_install:
       # Install dependencies with 'dev' dependency group
-      # https://python-poetry.org/docs/managing-dependencies/#dependency-groups
-      - poetry install --with dev
+      - pdm install -G dev
       
 # Build documentation in the "docs/" directory with Sphinx
 sphinx:
