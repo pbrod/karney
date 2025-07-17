@@ -17,7 +17,7 @@ build:
       - pip install pdm
     post_install:
       # Install dependencies with 'dev' dependency group
-      - pdm install -G dev
+      - pdm install -G dev --lockfile pdm.linux.lock
       
 # Build documentation in the "docs/" directory with Sphinx
 sphinx:
