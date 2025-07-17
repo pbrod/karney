@@ -24,10 +24,7 @@ classifiers = [
 ]
 # See https://numpy.org/neps/nep-0029-deprecation_policy.html:
 dependencies = [
-    "numpy<2.0; python_version < '3.11'",
-    "numpy>=1.25; python_version >= '3.11'",
-    # "numpy>=2.0; python_version >= '3.12'",
-    #"numpy>=1.19; python_version >= '3.8' and python_version < '3.12'",
+    "numpy>=1.11.0",
 ]
 
 [project.urls]
@@ -55,8 +52,19 @@ build-backend = "pdm.pep517.api"
 [tool.pdm]
 package-dir = "src"
 
+[tool.pdm.scripts]
+build-docs-html = "sphinx-build -b html docs docs/_build/html -d docs/_build/doctrees"
+build-docs-latex = "sphinx-build -b latex docs docs/_build/latex -d docs/_build/doctrees"
+build-docs-pdf = "sphinx-build -b latexpdf docs docs/_build/latex -d docs/_build/doctrees"
+lock_win64 = "pdm lock -L pdm_windows.lock --python 3.12 --strategy no_direct_minimal_versions --platform windows -dG all"
+lock_linux = "pdm lock -L pdm_linux.lock --python 3.12 --strategy no_direct_minimal_versions --platform linux -dG all"
+
+format = "ruff format ./src/"  # format code
+check-style = "ruff check ./src/"  # check code style
+
 [tool.semantic_release]
-commit_parser = "angular"
+# UPDATE: Use the new standard name for the parser
+commit_parser = "angular" #"conventional"
 logging_use_named_masks = true
 allow_zero_version = true
 tag_format = "v{version}"
@@ -97,7 +105,16 @@ patch_types = ["fix", "perf"]
 line-length = 100
 
 [tool.ruff.lint]
-select = ["E4", "E7", "E9", "E501", "F", "B", "Q"]  #[, "I"]
+select = ["B", # flake8-bugbear
+          "C4", # flake8-comprehensions
+          "E4", # pycodestyle import checks
+          "E7", # pycodestyle statement checks
+          "E9", # pycodestyle runtime checks
+          "E501", # pycodestyle linelength checks
+          "F", # PyFlakes
+          #"I", # isort
+          "Q"]  
+          
 
 [tool.ruff.format]
 #docstring-code-format = true
