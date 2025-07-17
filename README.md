@@ -135,3 +135,4 @@ Thus this article should be cited in publications using the software.
 
 
 The `karney` package structure was created with [`cookiecutter`](https://cookiecutter.readthedocs.io/en/latest/) and the `py-pkgs-cookiecutter` [template](https://github.com/py-pkgs/py-pkgs-cookiecutter).
+
