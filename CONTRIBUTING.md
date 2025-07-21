@@ -49,10 +49,10 @@ Ready to contribute? Here's how to set up `karney` for local development.
     $ pip install pdm
     ```
 
-3.  Install `karney` and its dependencies:
+3.  Install `karney` and its development dependencies:
 
     ```console
-    $ pdm install
+    $ pdm install -dG dev
     ```
 
 4.  Use `git` (or similar) to create a branch for local development and make your changes:
@@ -61,9 +61,27 @@ Ready to contribute? Here's how to set up `karney` for local development.
     $ git checkout -b name-of-your-bugfix-or-feature
     ```
 
-5.  When you're done making changes, check that your changes conform to any code formatting requirements and pass any tests.
+5.  When you're done making changes, check that your changes conform to any code formatting requirements and pass any tests:
 
-6.  Commit your changes and open a pull request.
+    ```console
+    $ pdm check-style
+    $ pdm run pytest --doctest-modules
+    ```
+
+6. Commit your changes with conventional commit messages:
+    When you make changes to the codebase, follow the "Angular" conventional commit message format. This format is specified in your `pyproject.toml` and is crucial for `python-semantic-release` to determine the version bump. The structure of a commit message is:
+
+    ```
+    <type>(<scope>): <subject>
+    ```
+
+    *   `<type>`: This is the most important part for versioning. Based on your configuration, the following types will trigger a release:
+        *   `feat`: A new feature (triggers a **minor** release, e.g., 1.0.10 -> 1.1.0)
+        *   `fix`: A bug fix (triggers a **patch** release, e.g., 1.0.10 -> 1.0.11)
+        *   `perf`: A code change that improves performance (triggers a **patch** release)
+    *   Other allowed types like `build`, `chore`, `ci`, `docs`, `style`, `refactor`, and `test` will be included in the changelog but will not trigger a version bump on their own.
+
+7.  Open a pull request.
 
 ## Pull Request Guidelines
 
