@@ -62,10 +62,6 @@ jobs:
 
     # Define job steps
     steps:
-    - name: Set up Python 3.12
-      uses: actions/setup-python@main
-      with:
-        python-version: 3.12
     - name: Check-out repository
       uses: actions/checkout@v4
       with:
@@ -73,17 +69,31 @@ jobs:
         ref: main
         submodules: recursive
 
-    - name: Use Python Semantic Release to prepare release
-      id: release
-      uses: python-semantic-release/python-semantic-release@v9.9.0
+    - name: Set up PDM
+      uses: pdm-project/setup-pdm@v4
       with:
+        python-version: "3.12"
+        
+    - name: Install all dependencies for release
+      run: pdm install -dG dev --lockfile pdm.linux.lock
+
+    - name: Run Python Semantic Release
+      id: release
+      # The GITHUB_TOKEN is automatically used by semantic-release
+      env:
         github_token: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        pdm run semantic-release publish
+        # Set outputs for subsequent jobs
+        echo "tag=$(pdm run semantic-release version --print)" >> $GITHUB_OUTPUT
+        echo "released=true" >> $GITHUB_OUTPUT
 
     - name: Publish package distributions to GitHub Releases
       uses: python-semantic-release/publish-action@main
       if: steps.release.outputs.released == 'true'
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
+        
     - name: Store the distribution packages
       uses: actions/upload-artifact@v4
       if: steps.release.outputs.released == 'true'

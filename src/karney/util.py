@@ -152,10 +152,13 @@ def deg(*rad_angles):
     --------
     >>> import numpy as np
     >>> from karney.util import deg
-    >>> deg(np.pi/2)
-    90.0
-    >>> deg(np.pi/2, [0, np.pi])
-    (90.0, array([  0., 180.]))
+    >>> np.allclose(deg(np.pi/2), 90)
+    True
+    >>> vals = deg(np.pi/2, [0, np.pi])
+    >>> np.allclose(vals[0], 90)
+    True
+    >>> np.allclose(vals[1], [0, 180])
+    True
 
     See also
     --------
@@ -184,10 +187,14 @@ def rad(*deg_angles):
     --------
     >>> import numpy as np
     >>> from karney.util import deg, rad
-    >>> deg(rad(90))
-    90.0
-    >>> deg(*rad(90, [0, 180]))
-    (90.0, array([  0., 180.]))
+    >>> np.allclose(deg(rad(90)), 90)
+    True
+
+    >>> vals = deg(*rad(90, [0, 180]))
+    >>> np.allclose(vals[0], 90)
+    True
+    >>> np.allclose(vals[1], [0, 180])
+    True
 
     See also
     --------
@@ -266,13 +273,13 @@ def get_ellipsoid(name):
     --------
     >>> from karney.util import get_ellipsoid
     >>> get_ellipsoid(name="wgs84")
-    Ellipsoid(a=6378137.0, f=0.0033528106647474805, name="GRS80 / WGS84 / NAD83")
+    Ellipsoid(a=6378137.0, f=0.0033528106647474805, name='GRS80 / WGS84 / NAD83')
     >>> get_ellipsoid(name="GRS80")
-    Ellipsoid(a=6378137.0, f=0.0033528106647474805, name="GRS80 / WGS84 / NAD83")
+    Ellipsoid(a=6378137.0, f=0.0033528106647474805, name='GRS80 / WGS84 / NAD83')
     >>> get_ellipsoid(name="NAD83")
-    Ellipsoid(a=6378137.0, f=0.0033528106647474805, name="GRS80 / WGS84 / NAD83")
+    Ellipsoid(a=6378137.0, f=0.0033528106647474805, name='GRS80 / WGS84 / NAD83')
     >>> get_ellipsoid(name=18)
-    Ellipsoid(a=6378137.0, f=0.0033528106647474805, name="GRS80 / WGS84 / NAD83")
+    Ellipsoid(a=6378137.0, f=0.0033528106647474805, name='GRS80 / WGS84 / NAD83')
 
     >>> wgs72 = get_ellipsoid(name="WGS 72")
     >>> wgs72.a == 6378135.0
