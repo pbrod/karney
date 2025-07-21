@@ -1,5 +1,48 @@
 # CHANGELOG
 
+## v1.1.0 (2025-07-21)
+
+### Feature
+
+* feat: New minor release ([`a147f2e`](https://github.com/pbrod/karney/commit/a147f2ec3724804b299c6ccec9c61e53480c8b03))
+
+* feat: Added pdm scripts
+
+Summary of scripts added:
+build-docs-XXX: Build the documentation in the docs folder
+lock_XXXX: Generates a lock file
+format: Runs ruff to format the source code
+check-style: Runs ruff to check the coding style of the source code. ([`380973f`](https://github.com/pbrod/karney/commit/380973f2ffd22654b8046f883c2a4d1c40da5cd6))
+
+### Fix
+
+* fix: Updated CI-CD.yml ([`17d968f`](https://github.com/pbrod/karney/commit/17d968fb4f022096cad614a695aeb23b1f345699))
+
+### Unknown
+
+* fix (util.py): Fixed doctests on numpy&gt;=2 strings ([`66202cc`](https://github.com/pbrod/karney/commit/66202cc1b6934074e88a7168893a8a584f217c0c))
+
+* docs (LICENSE): Updated licence. ([`3013992`](https://github.com/pbrod/karney/commit/3013992b25a02cdd22a52dc028ec44d71beb493e))
+
+* docs (CONTRIBUTING.md): Detailed the commit message format. ([`0922f5b`](https://github.com/pbrod/karney/commit/0922f5b5d80afe94ea2a4dbd14e5e5e854805ea9))
+
+* refactor (geodesic.py, util.py): Rewrite unnecessary generators as dict comprehensions ([`276417e`](https://github.com/pbrod/karney/commit/276417eed99fb25a3ef6adc863a6a4f537ae6be0))
+
+* feat (karney): Removed support for python 3.8 and added for python 3.13 ([`de013ec`](https://github.com/pbrod/karney/commit/de013ec2971a31b908b8d0a70bb0864c68f4be85))
+
+* docs (geodesic.py): Minor typo
+
+Fixes issue #1 ([`0c0e220`](https://github.com/pbrod/karney/commit/0c0e2200c340dcad3070972465919e2b772ea89c))
+
+* refactor (karney): Changed build backend from Poetry to PDM (Python Development Master)
+
+* pyproject.toml: Modified to follow PEP 621 for project metadata and to use PDM for dependency management and build configuration.
+* .github/workflows/CI-CD.yml: The GitHub Actions workflow is updated to use PDM for installing dependencies and running tests and builds.
+* .readthedocs.yml: The Read the Docs configuration is changed to use PDM for installing dependencies to build the documentation.
+* CONTRIBUTING.md: The setup instructions for contributors is updated to reflect the change to PDM.
+* poetry.lock: This file is deleted. PDM will generate a pdm.lock file to lock dependencies.
+* PUBLISHING.md: This file is added to document how to publish a new release of the `karney` library. ([`a861bcc`](https://github.com/pbrod/karney/commit/a861bcc6295e0805336dc5b7b1c868a35ebd2f56))
+
 ## v1.0.10 (2024-09-30)
 
 ### Fix
