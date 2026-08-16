@@ -22,22 +22,47 @@ jobs:
 
     steps:
     - name: Check-out repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
+
+      # Swap lockfile for Python 3.14 prior to setup-pdm
+    - name: Select Python 3.14 lockfile
+      if: matrix.python_version == '3.14'
+      shell: bash
+      run: |
+        if [ -f pdm.lock314 ]; then
+          echo "Using pdm.lock314 for Python 3.14"
+          cp pdm.lock314 pdm.lock
+        fi
 
     - name: Set up PDM
       uses: pdm-project/setup-pdm@v4
       with:
         python-version: ${{ matrix.python-version }}
         enable-cache: true
+        cache-dependency-path: |
+            pyproject.toml
+            pdm.lock
 
     - name: Install dependencies from lockfile
-      run: pdm install -dG dev --lockfile pdm.lock
+      run: pdm install -dG dev
 
     - name: Check code formatting & style
       run: pdm run check-style
 
     - name: Run test suite
       run: pdm run pytest tests/ --cov=karney --cov-report=xml --doctest-modules
+
+    - name: Build package distribution
+        run: pdm build
+
+    - name: Verify wheel installation
+      shell: bash
+      run: |
+        python -m venv test_env
+        source test_env/bin/activate || source test_env/Scripts/activate
+        pip install --upgrade pip
+        pip install dist/*.whl
+        python -c "import karney; print(karney.__version__)"
 
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v4
