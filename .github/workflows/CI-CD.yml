@@ -24,9 +24,9 @@ jobs:
     - name: Check-out repository
       uses: actions/checkout@v5
 
-      # Swap lockfile for Python 3.14 prior to setup-pdm
+    # Swap lockfile for Python 3.14 prior to setup-pdm
     - name: Select Python 3.14 lockfile
-      if: matrix.python_version == '3.14'
+      if: matrix.python-version == '3.14'
       shell: bash
       run: |
         if [ -f pdm.lock314 ]; then
@@ -40,8 +40,8 @@ jobs:
         python-version: ${{ matrix.python-version }}
         enable-cache: true
         cache-dependency-path: |
-            pyproject.toml
-            pdm.lock
+          pyproject.toml
+          pdm.lock
 
     - name: Install dependencies from lockfile
       run: pdm install -dG dev
@@ -53,7 +53,7 @@ jobs:
       run: pdm run pytest tests/ --cov=karney --cov-report=xml --doctest-modules
 
     - name: Build package distribution
-        run: pdm build
+      run: pdm build
 
     - name: Verify wheel installation
       shell: bash
