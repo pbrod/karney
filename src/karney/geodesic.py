@@ -998,6 +998,7 @@ def _distance(lat_a, lon_a, lat_b, lon_b, a=6378137, f=1.0 / 298.257223563):
         return s12[0], az1[0], az2[0]
     return s12, az1, az2
 
+
 if __doc__ is not None:
     _odict = globals()
     __doc__ = (
