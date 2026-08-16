@@ -3,14 +3,25 @@ Utility module
 ==============
 
 """
-from __future__ import division, print_function
-from collections import namedtuple
-import numpy as np
-from numpy import rad2deg, deg2rad
-from karney._common import test_docstrings, _make_summary
 
-__all__ = ["deg", "rad", "nthroot", "get_ellipsoid",
-           "eccentricity2", "polar_radius", "third_flattening"]
+from __future__ import division, print_function
+
+from collections import namedtuple
+
+import numpy as np
+from numpy import deg2rad, rad2deg
+
+from karney._common import _make_summary, test_docstrings
+
+__all__ = [
+    "deg",
+    "rad",
+    "nthroot",
+    "get_ellipsoid",
+    "eccentricity2",
+    "polar_radius",
+    "third_flattening",
+]
 
 FINFO = np.finfo(float)
 _tiny_name = "tiny" if np.__version__ < "1.22" else "smallest_normal"
@@ -31,8 +42,11 @@ ELLIPSOID = {
     8: Ellipsoid(a=6378166.0, f=1.0 / 298.3, name="Fisher 1960"),
     9: Ellipsoid(a=6378150.0, f=1.0 / 298.3, name="Fisher 1968"),
     10: Ellipsoid(a=6378270.0, f=1.0 / 297, name="Hough 1956"),
-    11: Ellipsoid(a=6378388.0, f=1.0 / 297,
-                  name="Hayford/International ellipsoid 1924/European Datum 1950/ED50"),
+    11: Ellipsoid(
+        a=6378388.0,
+        f=1.0 / 297,
+        name="Hayford/International ellipsoid 1924/European Datum 1950/ED50",
+    ),
     12: Ellipsoid(a=6378245.0, f=1.0 / 298.3, name="Krassovsky 1938"),
     13: Ellipsoid(a=6378145.0, f=1.0 / 298.25, name="NWL-9D / WGS 66"),
     14: Ellipsoid(a=6378160.0, f=1.0 / 298.25, name="South American 1969 / SAD69"),
@@ -41,42 +55,43 @@ ELLIPSOID = {
     17: Ellipsoid(a=6378206.4, f=1.0 / 294.9786982138, name="Clarke 1866 / NAD27"),
     18: Ellipsoid(a=6378137.0, f=1.0 / 298.257223563, name="GRS80 / WGS84 / NAD83"),
     19: Ellipsoid(a=6378137.0, f=298.257222101, name="ETRS89 / EUREF89"),
-    20: Ellipsoid(a=6377492.0176, f=1/299.15281285, name="NGO1948")
+    20: Ellipsoid(a=6377492.0176, f=1 / 299.15281285, name="NGO1948"),
 }
-ELLIPSOID_IX = {"airy1858": 1,
-                "airymodified": 2,
-                "australiannational": 3,
-                "bessel": 4,
-                "bessel1841": 4,
-                "clarke1880": 5,
-                "everest1830": 6,
-                "everestmodified": 7,
-                "fisher1960": 8,
-                "fisher1968": 9,
-                "hough1956": 10,
-                "hough": 10,
-                "hayford": 11,
-                "international": 11,
-                "internationalellipsoid1924": 11,
-                "europeandatum1950": 11,
-                "ed50": 11,
-                "krassovsky": 12,
-                "krassovsky1938": 12,
-                "nwl-9d": 13,
-                "wgs66": 13,
-                "southamerican1969": 14,
-                "sad69": 14,
-                "sovietgeod.system1985": 15,
-                "wgs72": 16,
-                "clarke1866": 17,
-                "nad27": 17,
-                "grs80": 18,
-                "wgs84": 18,
-                "nad83": 18,
-                "euref89": 19,
-                "etrs89": 19,
-                "ngo1948": 20
-                }
+ELLIPSOID_IX = {
+    "airy1858": 1,
+    "airymodified": 2,
+    "australiannational": 3,
+    "bessel": 4,
+    "bessel1841": 4,
+    "clarke1880": 5,
+    "everest1830": 6,
+    "everestmodified": 7,
+    "fisher1960": 8,
+    "fisher1968": 9,
+    "hough1956": 10,
+    "hough": 10,
+    "hayford": 11,
+    "international": 11,
+    "internationalellipsoid1924": 11,
+    "europeandatum1950": 11,
+    "ed50": 11,
+    "krassovsky": 12,
+    "krassovsky1938": 12,
+    "nwl-9d": 13,
+    "wgs66": 13,
+    "southamerican1969": 14,
+    "sad69": 14,
+    "sovietgeod.system1985": 15,
+    "wgs72": 16,
+    "clarke1866": 17,
+    "nad27": 17,
+    "grs80": 18,
+    "wgs84": 18,
+    "nad83": 18,
+    "euref89": 19,
+    "etrs89": 19,
+    "ngo1948": 20,
+}
 
 
 def eccentricity2(f):
@@ -224,10 +239,10 @@ def nthroot(x, n):
     """
     shape = np.shape(x)
     x = np.atleast_1d(x)
-    y = x**(1. / n)
+    y = x ** (1.0 / n)
     mask = (x != 0) & (EPS * np.abs(x) < 1)
     ym = y[mask]
-    y[mask] -= (ym**n - x[mask]) / (n * ym**(n - 1))
+    y[mask] -= (ym**n - x[mask]) / (n * ym ** (n - 1))
     if shape == ():
         return y[()]
     return y
@@ -298,9 +313,12 @@ def get_ellipsoid(name):
     return ELLIPSOID[ellipsoid_id]
 
 
-_odict = globals()
-__doc__ = (__doc__  # @ReservedAssignment
-           + _make_summary({n: _odict[n] for n in __all__}))
+if __doc__ is not None:
+    _odict = globals()
+    __doc__ = (
+        __doc__  # @ReservedAssignment
+        + _make_summary({n: _odict[n] for n in __all__})
+    )
 
 
 if __name__ == "__main__":

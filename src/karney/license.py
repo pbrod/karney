@@ -30,8 +30,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 """
 
-
 from datetime import datetime
+
 CURRENT_YEAR = datetime.now().year
 
 if __doc__:
