@@ -945,7 +945,7 @@ def _distance(lat_a, lon_a, lat_b, lon_b, a=6378137, f=1.0 / 298.257223563):
 
         i1fun = _get_i1_fun(epsi, return_inverse=False)
 
-        s12 = b * np.abs((i1fun(sigma2) - i1fun(sigma1)))  # Eq. 7. I1(sigma2)
+        s12 = b * np.abs(i1fun(sigma2) - i1fun(sigma1))  # Eq. 7. I1(sigma2)
 
         fun_i3 = _get_i3_fun(epsi, eta)
         lamda1 = w_1 - f * sin_alpha0 * fun_i3(sigma1)  # Eq. 8

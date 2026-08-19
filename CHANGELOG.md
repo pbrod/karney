@@ -1,5 +1,6 @@
 # Changelog
 
+
 ## [1.1.1] - 2026-08-19
 
 ### 📚 Documentation

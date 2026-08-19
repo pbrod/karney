@@ -11,11 +11,7 @@ from datetime import datetime
 
 CURRENT_YEAR = datetime.now().year
 START_YEAR = 2021
-DEV_YEARS = (
-    "{}".format(START_YEAR)
-    if START_YEAR == CURRENT_YEAR
-    else "{}-{}".format(START_YEAR, CURRENT_YEAR)
-)
+DEV_YEARS = f"{START_YEAR}" if START_YEAR == CURRENT_YEAR else f"{START_YEAR}-{CURRENT_YEAR}"
 
 __location__ = os.path.abspath(os.path.dirname(__file__))
 SOURCE_PATH = os.path.join(os.path.dirname(__location__), "src")

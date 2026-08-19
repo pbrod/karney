@@ -92,7 +92,7 @@ def use_docstring(docstring):
 def test_docstrings(filename):
     import doctest
 
-    print("Testing docstrings in {0!s}".format(filename))
+    print(f"Testing docstrings in {filename!s}")
     doctest.testmod(optionflags=doctest.NORMALIZE_WHITESPACE | doctest.ELLIPSIS)
     print("Docstrings tested")
 
