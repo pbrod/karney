@@ -4,14 +4,10 @@ Utility module
 
 """
 
-from __future__ import division, print_function
-
 from collections import namedtuple
 
 import numpy as np
-from numpy import deg2rad, rad2deg
 
-from karney._common import _make_summary, test_docstrings
 
 __all__ = [
     "deg",
@@ -180,8 +176,8 @@ def deg(*rad_angles):
     rad
     """
     if len(rad_angles) == 1:
-        return rad2deg(rad_angles[0])
-    return tuple(rad2deg(angle) for angle in rad_angles)
+        return np.rad2deg(rad_angles[0])
+    return tuple(np.rad2deg(angle) for angle in rad_angles)
 
 
 def rad(*deg_angles):
@@ -216,8 +212,8 @@ def rad(*deg_angles):
     deg
     """
     if len(deg_angles) == 1:
-        return deg2rad(deg_angles[0])
-    return tuple(deg2rad(angle) for angle in deg_angles)
+        return np.deg2rad(deg_angles[0])
+    return tuple(np.deg2rad(angle) for angle in deg_angles)
 
 
 def nthroot(x, n):
@@ -314,6 +310,8 @@ def get_ellipsoid(name):
 
 
 if __doc__ is not None:
+    from karney._common import _make_summary
+
     _odict = globals()
     __doc__ = (
         __doc__  # @ReservedAssignment
@@ -322,4 +320,6 @@ if __doc__ is not None:
 
 
 if __name__ == "__main__":
+    from karney._common import test_docstrings
+
     test_docstrings(__file__)

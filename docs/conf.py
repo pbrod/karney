@@ -11,8 +11,11 @@ from datetime import datetime
 
 CURRENT_YEAR = datetime.now().year
 START_YEAR = 2021
-DEV_YEARS = "{}".format(START_YEAR) if START_YEAR == CURRENT_YEAR else "{}-{}".format(START_YEAR,
-                                                                                      CURRENT_YEAR)
+DEV_YEARS = (
+    "{}".format(START_YEAR)
+    if START_YEAR == CURRENT_YEAR
+    else "{}-{}".format(START_YEAR, CURRENT_YEAR)
+)
 
 __location__ = os.path.abspath(os.path.dirname(__file__))
 SOURCE_PATH = os.path.join(os.path.dirname(__location__), "src")
@@ -21,7 +24,7 @@ sys.path.insert(0, SOURCE_PATH)
 
 # -- Project information -----------------------------------------------------
 
-project = u"Karney"
+project = "Karney"
 
 PACKAGE_NAME = project.lower()
 author = "Per A. Brodtkorb"
@@ -60,13 +63,12 @@ exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 html_theme = "sphinx_rtd_theme"
 
 
-
 # -- Doctest configuration ----------------------------------------
 
-doctest_default_flags = (0
+doctest_default_flags = (
+    0
     | doctest.DONT_ACCEPT_TRUE_FOR_1
     | doctest.ELLIPSIS
     | doctest.IGNORE_EXCEPTION_DETAIL
     | doctest.NORMALIZE_WHITESPACE
 )
-

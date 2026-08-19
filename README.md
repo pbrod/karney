@@ -109,7 +109,7 @@ Exact solution:
 See also
     [Example 8 at www.navlab.net](http://www.navlab.net/nvector/#example_8)
 
-	
+
 
 ## Contributing
 

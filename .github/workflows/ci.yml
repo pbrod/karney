@@ -1,0 +1,100 @@
+name: CI - Tests
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+  schedule:
+    - cron: "0 2 * * 1-5"
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ci:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        python_version:
+          - "3.15.0-rc.1"
+          - "3.14"
+          - "3.13"
+          - "3.12"
+          - "3.11"
+          - "3.10"
+        os:
+          - ubuntu-latest
+          - macos-latest
+          - windows-latest
+
+    continue-on-error: ${{ startsWith(matrix.python_version, '3.15') }}
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v5
+
+      - name: Select Python 3.14/3.15 lockfile
+        if: matrix.python_version == '3.14' || startsWith(matrix.python_version, '3.15')
+        shell: bash
+        run: |
+          if [ -f pdm.lock314 ]; then
+            echo "Using pdm.lock314"
+            cp pdm.lock314 pdm.lock
+          fi
+
+      - name: Set up PDM
+        uses: pdm-project/setup-pdm@v4
+        with:
+          python-version: ${{ matrix.python_version }}
+          enable-cache: true
+          cache-dependency-path: |
+            pyproject.toml
+            pdm.lock
+
+      - name: Install dependencies
+        run: pdm install -dG test
+
+      - name: Check formatting
+        run: pdm run ruff format --check .
+
+      - name: Run Ruff linter
+        run: pdm run ruff check .
+
+      - name: Run MyPy static analysis
+        run: pdm run mypy src/
+
+      - name: Run test suite
+        run: pdm run pytest --cov=karney --cov-report=xml --doctest-modules
+
+      - name: Build package distribution
+        run: pdm build
+
+      - name: Verify wheel installation
+        shell: bash
+        run: |
+          python -m venv test_env
+
+          if [ "$RUNNER_OS" = "Windows" ]; then
+            PY=test_env/Scripts/python
+            PIP=test_env/Scripts/pip
+          else
+            PY=test_env/bin/python
+            PIP=test_env/bin/pip
+          fi
+
+          $PY -m pip install --upgrade pip
+          $PIP install dist/*.whl
+          $PY -c "import karney; print(karney.__version__)"
+
+      - name: Upload coverage to Codecov
+        if: matrix.os == 'ubuntu-latest' &&
+            matrix.python_version == '3.13' &&
+            github.event_name == 'push'
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./coverage.xml

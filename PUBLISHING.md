@@ -1,77 +1,238 @@
-Publishing a new release of the `karney` library involves a few steps, primarily managed through git commits and automated by the `python-semantic-release` tool configured in your `pyproject.toml` file. Here’s a breakdown of the process:
+# Publishing
 
-### Automated Release with `python-semantic-release`
+Publishing a new release of `karney` is a straightforward process based on:
 
-The project is configured to use `python-semantic-release`, which automates versioning, changelog generation, and package publishing based on your commit messages. This means you don't manually set the version number for a new release. Instead, the tool deduces the next version based on the types of commits you've made since the last release.
+- Conventional Commit messages
+- `pdm-bump` for version management
+- GitHub Actions release automation
+- Trusted PyPI publishing
 
-Here's how it works:
+The release workflow automatically builds, verifies, and publishes the package whenever a version tag is pushed.
 
-1.  **Commit Your Changes with Conventional Commit Messages**:
-    When you make changes to the codebase, follow the "Angular" conventional commit message format. This format is specified in your `pyproject.toml` and is crucial for `python-semantic-release` to determine the version bump. The structure of a commit message is:
+## Release Workflow
 
-    ```
-    <type>(<scope>): <subject>
-    ```
+### 1. Complete Your Changes
 
-    *   `<type>`: This is the most important part for versioning. Based on your configuration, the following types will trigger a release:
-        *   `feat`: A new feature (triggers a **minor** release, e.g., 1.0.10 -> 1.1.0)
-        *   `fix`: A bug fix (triggers a **patch** release, e.g., 1.0.10 -> 1.0.11)
-        *   `perf`: A code change that improves performance (triggers a **patch** release)
-    *   Other allowed types like `build`, `chore`, `ci`, `docs`, `style`, `refactor`, and `test` will be included in the changelog but will not trigger a version bump on their own.
+Implement the desired fixes, features, documentation updates, or maintenance tasks.
 
-2.  **Push to the `main` Branch**:
-    The GitHub Actions workflow `CI-CD.yml` is configured to run on pushes to the `main` branch. When you push commits with the appropriate messages to `main`, the `release1` job in the workflow will be triggered.
+Before creating a release, ensure that all checks pass:
 
-3.  **The Release Process in GitHub Actions**:
-    The `release1` job will:
-    *   Check out your repository.
-    *   Run `python-semantic-release`, which will:
-        *   Analyze the commit messages since the last release.
-        *   Determine the new version number (e.g., v1.0.11).
-        *   Update the `version` in `pyproject.toml` and `src/karney/__init__.py`.
-        *   Generate a `CHANGELOG.md` with the latest changes.
-        *   Create a new git tag with the new version number.
-        *   Push the updated `pyproject.toml`, `src/karney/__init__.py`, `CHANGELOG.md`, and the new tag to your repository.
-    *   If a new release is created, the workflow will then build the package using `pdm build`.
-    *   The built distributions (wheel and sdist) are then uploaded to GitHub Releases.
+```console
+pdm format --check
+pdm check-style
+pdm check-types
+pdm test
+```
 
-4.  **Publishing to PyPI**:
-    The workflow includes jobs for publishing to TestPyPI and PyPI:
-    *   `testpypi-publish`: This job will take the distribution files and publish them to TestPyPI. This is a good way to verify that your package works as expected before a full public release.
-    *   `pypi-publish`: Once the TestPyPI publish is successful, this job will publish the package to the official Python Package Index (PyPI).
+## 2. Update the Version
 
-In summary, to publish a new release, you need to:
+Use `pdm-bump` to update the project version.
 
-*   **Make your code changes.**
-*   **Commit them with a message that follows the conventional commit format.**
-*   **Push your changes to the `main` branch.**
+### Patch Release
 
-The rest of the process is automated by your GitHub Actions workflow.
+Examples:
 
-### Manual Publishing with PDM (if needed)
+- Bug fixes
+- Documentation corrections
+- Small maintenance changes
 
-While your setup is automated, it's useful to know how to publish manually with PDM.
+```console
+pdm bump patch
+```
 
-1.  **Build the package**:
-    This command will create a wheel and a source distribution in the `dist/` directory.
+Example:
 
-    ```bash
-    pdm build
-    ```
+```text
+1.1.0 → 1.1.1
+```
 
-2.  **Publish to PyPI**:
-    You can publish the contents of the `dist/` directory to PyPI. You'll need to have a PyPI account and an API token.
+### Minor Release
 
-    ```bash
-    pdm publish
-    ```
+Examples:
 
-    You can also specify a repository, like TestPyPI:
+- New functionality
+- Backward-compatible enhancements
 
-    ```bash
-    pdm publish --repository testpypi
-    ```
+```console
+pdm bump minor
+```
 
-    PDM will prompt for your username and password. For PyPI, you should use `__token__` as the username and your PyPI API token as the password.
+Example:
 
-Your current setup with `python-semantic-release` is the recommended way to handle releases for your project, as it ensures a consistent and automated process.
+```text
+1.1.0 → 1.2.0
+```
+
+### Major Release
+
+Examples:
+
+- Breaking API changes
+
+```console
+pdm bump major
+```
+
+Example:
+
+```text
+1.1.0 → 2.0.0
+```
+
+## 3. Update the Changelog
+
+Review and update `CHANGELOG.md`.
+
+Ensure the upcoming release section accurately summarizes:
+
+- New features
+- Bug fixes
+- Refactoring
+- Documentation updates
+- Other noteworthy changes
+
+## 4. Commit the Release Changes
+
+Commit the version and changelog updates:
+
+```console
+git add .
+git commit -m "chore(release): prepare v1.2.0"
+```
+
+## 5. Create and Push a Version Tag
+
+Create a version tag matching the project version:
+
+```console
+git tag v1.2.0
+```
+
+Push both commits and tags:
+
+```console
+git push origin develop
+git push origin v1.2.0
+```
+
+Or:
+
+```console
+git push origin --tags
+```
+
+## 6. Automatic Release Process
+
+Pushing a version tag triggers the GitHub Actions release workflow.
+
+The workflow will:
+
+1. Build source and wheel distributions.
+2. Verify that the wheel installs correctly.
+3. Verify that the version does not already exist on PyPI.
+4. Publish the package to PyPI using trusted publishing.
+5. Optionally create a GitHub Release.
+
+No manual upload is normally required.
+
+## Conventional Commits
+
+Although releases are triggered by version tags, contributors are encouraged to use Conventional Commit messages:
+
+```text
+feat(core): add support for custom ellipsoids
+fix(geodesic): correct azimuth calculation near poles
+docs: update installation instructions
+test(core): add regression tests
+```
+
+Common commit types include:
+
+- `feat`
+- `fix`
+- `docs`
+- `test`
+- `refactor`
+- `perf`
+- `ci`
+- `build`
+- `chore`
+- `style`
+
+These help maintain a clean project history and improve changelog generation.
+
+## Manual Publishing
+
+In rare situations it may be necessary to publish manually.
+
+### Build the Package
+
+```console
+pdm build
+```
+
+This creates:
+
+```text
+dist/
+├── karney-<version>.tar.gz
+└── karney-<version>-py3-none-any.whl
+```
+
+### Publish to PyPI
+
+```console
+pdm publish
+```
+
+### Publish to TestPyPI
+
+```console
+pdm publish --repository testpypi
+```
+
+You will need appropriate credentials or API tokens.
+
+## Troubleshooting
+
+### Verify the Built Wheel
+
+```console
+python -m venv test_env
+
+# Linux/macOS
+test_env/bin/pip install dist/*.whl
+
+# Windows*test_env\Scripts\pip install dist**.whl
+```
+
+Verify the installation:
+
+```console
+python -c "import karney; print(karney.__version__)"
+```
+
+### Release Already Exists
+
+If the release workflow reports that the version already exists on PyPI:
+
+1. Increment the version.
+2. Create a new tag.
+3. Push the new tag.
+
+Existing PyPI releases cannot be overwritten.
+
+## Summary
+
+Typical release workflow:
+
+```console
+pdm bump patch
+git add .
+git commit -m "chore(release): prepare v1.1.1"
+git tag v1.1.1
+git push origin develop
+git push origin v1.1.1
+```
+
+Once the tag is pushed, GitHub Actions handles the rest.

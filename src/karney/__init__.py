@@ -19,23 +19,18 @@ J. Geodesy 87, 43-55 (2013);
 https://doi.org/10.1007/s00190-012-0578-z
 """
 
-import importlib.metadata
+from . import geodesic, util, _license
 
-from . import geodesic, license, util
+__version__ = "1.1.1"
 
-try:
-    __version__ = importlib.metadata.version("karney")
-except importlib.metadata.PackageNotFoundError:  # pragma: no cover
-    # Fallback when running from an uninstalled source tree
-    __version__ = "1.1.0"
+__all__ = ["__version__", "geodesic", "license", "util"]
+
 
 if __doc__ is not None:
     sections = [
         __doc__,
         geodesic.__doc__,
         util.__doc__,
-        f"License\n-------\n{license.__doc__}",
+        f"License\n-------\n{_license.__doc__}",
     ]
     __doc__ = "\n\n".join(part for part in sections if part is not None)
-
-__all__ = ["__version__", "geodesic", "license", "util"]

@@ -1,0 +1,75 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  validate-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Set up PDM
+        uses: pdm-project/setup-pdm@v4
+        with:
+          python-version: "3.13"
+
+      - name: Install dependencies
+        run: pdm install -dG test
+
+      - name: Build package
+        run: pdm build
+
+      - name: Verify wheel installation
+        shell: bash
+        run: |
+          python -m venv test_env
+          test_env/bin/pip install dist/*.whl
+          test_env/bin/python -c "import karney; print(karney.__version__)"
+
+      - name: Check version exists on PyPI
+        id: version_check
+        shell: bash
+        run: |
+          VERSION=$(pdm show --version)
+
+          if pip index versions karney 2>/dev/null | grep -q "$VERSION"; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Fail if version already exists
+        if: steps.version_check.outputs.exists == 'true'
+        run: |
+          echo "Version already exists on PyPI"
+          exit 1
+
+  publish:
+    needs: validate-release
+
+    runs-on: ubuntu-latest
+
+    permissions:
+      id-token: write
+
+    environment:
+      name: pypi
+      url: https://pypi.org/p/karney
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Set up PDM
+        uses: pdm-project/setup-pdm@v4
+        with:
+          python-version: "3.13"
+
+      - name: Build package
+        run: pdm build
+
+      - name: Publish to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1

@@ -1,7 +1,6 @@
 # Contributing
 
-Contributions are welcome, and they are greatly appreciated! Every little bit
-helps, and credit will always be given.
+Contributions are welcome and greatly appreciated. Every contribution, no matter how small, helps improve the project.
 
 ## Types of Contributions
 
@@ -9,89 +8,159 @@ helps, and credit will always be given.
 
 If you are reporting a bug, please include:
 
-* Your operating system name and version.
-* Any details about your local setup that might be helpful in troubleshooting.
-* Detailed steps to reproduce the bug.
+- Your operating system and version.
+- Your Python version.
+- Any relevant details about your local environment.
+- Detailed steps to reproduce the issue.
+- The expected and actual behavior.
 
 ### Fix Bugs
 
-Look through the GitHub issues for bugs. Anything tagged with "bug" and "help
-wanted" is open to whoever wants to implement it.
+Browse the GitHub issue tracker for issues labeled **bug** and **help wanted**.
 
 ### Implement Features
 
-Look through the GitHub issues for features. Anything tagged with "enhancement"
-and "help wanted" is open to whoever wants to implement it.
+Browse the GitHub issue tracker for issues labeled **enhancement** and **help wanted**.
 
-### Write Documentation
+### Improve Documentation
 
-You can never have enough documentation! Please feel free to contribute to any
-part of the documentation, such as the official docs, docstrings, or even
-on the web in blog posts, articles, and such.
+Documentation improvements of any size are welcome, including:
+
+- User guides
+- Tutorials
+- API documentation
+- Docstrings
+- Examples
+- Blog posts and articles
 
 ### Submit Feedback
 
-If you are proposing a feature:
+If you are proposing a new feature:
 
-* Explain in detail how it would work.
-* Keep the scope as narrow as possible, to make it easier to implement.
-* Remember that this is a volunteer-driven project, and that contributions
-  are welcome :)
+- Explain clearly what problem it solves.
+- Describe how it would work.
+- Keep the scope as focused as possible.
+- Remember that this is a volunteer-driven project.
 
-## Get Started!
+## Getting Started
 
-Ready to contribute? Here's how to set up `karney` for local development.
+Ready to contribute? Follow these steps to set up a local development environment.
 
-1. Download a copy of `karney` locally.
-2.  Install `pdm`:
+### 1. Fork and Clone the Repository
 
-    ```console
-    $ pip install pdm
-    ```
+Fork the repository on GitHub and clone your fork locally:
 
-3.  Install `karney` and its development dependencies:
+```console
+git clone https://github.com/<your-github-username>/karney.git
+cd karney
+```
 
-    ```console
-    $ pdm install -dG dev
-    ```
+### 2. Install PDM
 
-4.  Use `git` (or similar) to create a branch for local development and make your changes:
+```console
+pip install pdm
+```
 
-    ```console
-    $ git checkout -b name-of-your-bugfix-or-feature
-    ```
+### 3. Install Dependencies
 
-5.  When you're done making changes, check that your changes conform to any code formatting requirements and pass any tests:
+Install the package together with development dependencies:
 
-    ```console
-    $ pdm check-style
-    $ pdm run pytest --doctest-modules
-    ```
+```console
+pdm install -dG test -G docs -G dev
+```
 
-6. Commit your changes with conventional commit messages:
-    When you make changes to the codebase, follow the "Angular" conventional commit message format. This format is specified in your `pyproject.toml` and is crucial for `python-semantic-release` to determine the version bump. The structure of a commit message is:
+### 4. Create a Branch
 
-    ```
-    <type>(<scope>): <subject>
-    ```
+Create a branch for your changes:
 
-    *   `<type>`: This is the most important part for versioning. Based on your configuration, the following types will trigger a release:
-        *   `feat`: A new feature (triggers a **minor** release, e.g., 1.0.10 -> 1.1.0)
-        *   `fix`: A bug fix (triggers a **patch** release, e.g., 1.0.10 -> 1.0.11)
-        *   `perf`: A code change that improves performance (triggers a **patch** release)
-    *   Other allowed types like `build`, `chore`, `ci`, `docs`, `style`, `refactor`, and `test` will be included in the changelog but will not trigger a version bump on their own.
+```console
+git checkout -b name-of-your-feature
+```
 
-7.  Open a pull request.
+Examples:
+
+```console
+git checkout -b fix-geodesic-edge-case
+git checkout -b add-example-notebook
+```
+
+### 5. Make Your Changes
+
+Implement your changes and add or update tests and documentation as needed.
+
+### 6. Run Quality Checks
+
+Before submitting a pull request, ensure that all checks pass:
+
+```console
+pdm format --check
+pdm check-style
+pdm check-types
+pdm test
+```
+
+If any command reports an error, please resolve it before opening a pull request.
+
+### 7. Commit Your Changes
+
+Please use Conventional Commit messages whenever practical:
+
+```text
+<type>(<scope>): <subject>
+```
+
+Examples:
+
+```text
+feat(core): add support for custom ellipsoids
+fix(geodesic): correct azimuth calculation near poles
+docs: update installation instructions
+test(core): add regression test for issue 42
+```
+
+Common commit types include:
+
+- `feat` – new functionality
+- `fix` – bug fixes
+- `docs` – documentation updates
+- `test` – test improvements
+- `refactor` – code improvements without behavior changes
+- `perf` – performance improvements
+- `ci` – CI/CD changes
+- `build` – packaging or build-system changes
+- `chore` – maintenance tasks
+- `style` – formatting or style-only changes
+
+### 8. Open a Pull Request
+
+Push your branch to GitHub and open a pull request against the `develop` branch. 
+Please ensure that all tests and CI checks pass before requesting review.
 
 ## Pull Request Guidelines
 
-Before you submit a pull request, check that it meets these guidelines:
+Before submitting a pull request, please ensure that:
 
-1. The pull request should include additional tests if appropriate.
-2. If the pull request adds functionality, the docs should be updated.
-3. The pull request should work for all currently supported operating systems and versions of Python.
+1. All tests pass.
+2. All CI checks pass.
+3. New functionality includes appropriate tests.
+4. Public-facing functionality includes documentation updates.
+5. The code works on all supported Python versions.
+6. The pull request remains focused on a single topic whenever possible.
+
+## Code Style
+
+This project uses:
+
+- Ruff for formatting and linting
+- MyPy for static type checking
+- Pytest for testing
+
+Please follow the existing coding style and patterns used throughout the code base.
+
+## Questions?
+
+If you have questions, feel free to open a GitHub issue or discussion.
 
 ## Code of Conduct
 
-Please note that the `karney` project is released with a
-Code of Conduct. By contributing to this project you agree to abide by its terms.
+This project is released with a Code of Conduct. By participating, you agree to abide by its terms.
