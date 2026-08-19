@@ -2,7 +2,7 @@
 
 [![PyPI version](https://badge.fury.io/py/karney.svg)](https://badge.fury.io/py/karney)
 [![Documentation](https://readthedocs.org/projects/karney/badge/?svg=true "documentation")](https://karney.readthedocs.io/en/latest/)
-[![CI-tests](https://github.com/pbrod/karney/actions/workflows/CI-CD.yml/badge.svg)](https://github.com/pbrod/karney/actions/workflows/CI-CD.yml)
+[![CI-tests](https://github.com/pbrod/karney/actions/workflows/ci.yml/badge.svg)](https://github.com/pbrod/karney/actions/workflows/ci.yml)
 
 
 The `karney` library provides native Python implementations of a subset of the C++ library, GeographicLib.
@@ -135,4 +135,3 @@ Thus this article should be cited in publications using the software.
 
 
 The `karney` package structure was created with [`cookiecutter`](https://cookiecutter.readthedocs.io/en/latest/) and the `py-pkgs-cookiecutter` [template](https://github.com/py-pkgs/py-pkgs-cookiecutter).
-
