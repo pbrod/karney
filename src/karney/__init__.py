@@ -19,7 +19,7 @@ J. Geodesy 87, 43-55 (2013);
 https://doi.org/10.1007/s00190-012-0578-z
 """
 
-from . import geodesic, util, _license
+from . import _license, geodesic, util
 
 __version__ = "1.1.1"
 

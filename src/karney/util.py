@@ -8,7 +8,6 @@ from collections import namedtuple
 
 import numpy as np
 
-
 __all__ = [
     "deg",
     "rad",

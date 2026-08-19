@@ -4,8 +4,8 @@
 # list see the documentation:
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
 
-import os
 import doctest
+import os
 import sys
 from datetime import datetime
 

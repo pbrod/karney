@@ -5,10 +5,13 @@ Created on 23. jun. 2021
 """
 
 from functools import partial
+
 import pytest
-from hypothesis import given, strategies as st
+from hypothesis import given
+from hypothesis import strategies as st
 from numpy.testing import assert_allclose as _assert_allclose  # @UnresolvedImport
-from karney.util import deg, rad, nthroot, get_ellipsoid, Ellipsoid
+
+from karney.util import Ellipsoid, deg, get_ellipsoid, nthroot, rad
 
 assert_allclose = partial(_assert_allclose, atol=1e-15)
 

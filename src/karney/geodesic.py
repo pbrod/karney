@@ -9,7 +9,6 @@ import warnings
 import numpy as np
 from numpy import arctan, arctan2, cos, sin, sqrt, tan
 
-
 # from scipy.special import ellipeinc, ellipkinc  # pylint: disable=no-name-in-module
 from karney._common import _make_summary, test_docstrings
 from karney.util import (

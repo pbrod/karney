@@ -7,12 +7,12 @@ Module that checks that the geodesic direct and inverse methods is working corre
 """
 
 from collections import namedtuple
+
+import numpy as np
 import pytest
 from pytest import approx
 
-import numpy as np
 from karney.geodesic import distance, reckon
-
 
 Ellipsoid = namedtuple("Ellipsoid", "a f name")
 
